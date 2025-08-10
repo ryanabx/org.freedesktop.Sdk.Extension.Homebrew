@@ -13,8 +13,8 @@ sudo dnf install flatpak-builder
 Clone source
 
 ```shell
-git clone https://github.com/ryanabx/org.freedesktop.Sdk.Extension.brew.git
-cd org.freedesktop.Sdk.Extension.brew
+git clone https://github.com/ryanabx/org.freedesktop.Sdk.Extension.Homebrew.git
+cd org.freedesktop.Sdk.Extension.Homebrew
 ```
 
 Run flatpak-builder:
