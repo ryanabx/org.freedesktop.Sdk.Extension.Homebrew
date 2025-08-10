@@ -1,0 +1,58 @@
+{
+    "$schema": "https://raw.githubusercontent.com/flatpak/flatpak-builder/refs/heads/main/data/flatpak-manifest.schema.json",
+    "id": "org.freedesktop.Sdk.Extension.Homebrew",
+    "branch": "24.08",
+    "runtime": "org.freedesktop.Sdk",
+    "build-extension": true,
+    "sdk": "org.freedesktop.Sdk",
+    "runtime-version": "24.08",
+    "sdk-extensions": [],
+    "modules": [
+        {
+            "name": "Homebrew",
+            "buildsystem": "simple",
+            "sources": [
+                {
+                    "type": "git",
+                    "tag": "4.6.0",
+                    "url": "https://github.com/Homebrew/brew.git",
+                    "dest": ".linuxbrew"
+                }
+            ],
+            "build-commands": [
+                "mv .linuxbrew /usr/lib/sdk/Homebrew"
+            ]
+        },
+        {
+            "name": "scripts",
+            "sources": [
+                {
+                    "type": "script",
+                    "commands": [
+                        "mkdir -p $XDG_DATA_HOME/linuxbrew/.linuxbrew/",
+                        "cp -rf /usr/lib/sdk/Homebrew/.linuxbrew/* $XDG_DATA_HOME/linuxbrew/.linuxbrew/",
+                        "eval \"$($XDG_DATA_HOME/linuxbrew/.linuxbrew/bin/brew shellenv)\""
+                    ],
+                    "dest-filename": "enable.sh"
+                }
+            ],
+            "buildsystem": "simple",
+            "build-commands": [
+                "cp enable.sh /usr/lib/sdk/Homebrew/"
+            ]
+        },
+        {
+            "name": "appdata",
+            "buildsystem": "simple",
+            "build-commands": [
+                "install -Dm0644 org.freedesktop.Sdk.Extension.Homebrew.appdata.xml -t /usr/lib/sdk/Homebrew/share/metainfo"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "path": "org.freedesktop.Sdk.Extension.Homebrew.appdata.xml"
+                }
+            ]
+        }
+    ]
+}
